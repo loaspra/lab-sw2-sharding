@@ -63,3 +63,44 @@ volumes:
 Repo:
 
 [repo of batch job](https:github.com/loaspra/lab-sw2-sharding)
+
+
+## Requirements:
+
+- Scala y Maven
+
+```bash
+sudo apt install scala -y
+
+sudo apt install maven -y
+```
+
+- Spark
+
+```bash 
+wget https://downloads.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
+tar xvf spark-3.5.0-bin-hadoop3.tgz
+
+sudo mv spark-3.5.0-bin-hadoop3 /opt/spark
+
+echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+echo 'export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin' >> ~/.bashrc
+source ~/.bashrc
+
+# Check
+spark-submit --version
+```
+
+- MongoDB Connector para Spark
+
+> Se agrega al pom.xml la dependencia
+
+```xml
+<dependency>
+  <groupId>org.mongodb.spark</groupId>
+  <artifactId>mongo-spark-connector_2.12</artifactId>
+  <version>3.0.1</version>
+</dependency>
+```
+
+El batch job se compila usando **maven**, luego de haberse creado el target, se corre en un container usando el dockerFile en cuestion
